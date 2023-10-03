@@ -18,7 +18,14 @@ export class TaskListComponent {
       ) {}
 
     ngOnInit() {
-       this.taskService.getLists().subscribe((lists: any) => this.lists = lists);
+       this.taskService.getLists().subscribe((lists: any) => {
+        if(lists) {
+                  this.lists = lists
+                  this.hideloader();
+        }
+        
+      
+      });
 
        this.route.params.subscribe((params: Params) => {
          this.listId = params['listId'];
@@ -42,5 +49,9 @@ export class TaskListComponent {
       }
       this.router.navigate(["./new-task"],{relativeTo: this.route})
     }
-
+    hideloader() {
+      console.log("ran")
+           const x = document.getElementById("loading")! 
+                x.style.display = 'none';
+        }
 }
